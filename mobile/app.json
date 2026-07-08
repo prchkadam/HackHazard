@@ -37,6 +37,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "apiUrl": "http://localhost:5000",
+      "googleWebClientId": "",
+      "googleIosClientId": "",
+      "googleAndroidClientId": ""
     }
   }
 }
