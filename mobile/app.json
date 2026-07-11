@@ -8,9 +8,11 @@
     "scheme": "mobile",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/expo.icon",
+      "bundleIdentifier": "com.anonymous.mobile"
     },
     "android": {
+      "package": "com.anonymous.mobile",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -32,6 +34,12 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 76
         }
+      ],
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.166140890404-h3b8g6q232eegsnt336u"
+        }
       ]
     ],
     "experiments": {
@@ -39,7 +47,6 @@
       "reactCompiler": true
     },
     "extra": {
-      "apiUrl": "http://localhost:5000",
       "googleWebClientId": "",
       "googleIosClientId": "",
       "googleAndroidClientId": ""

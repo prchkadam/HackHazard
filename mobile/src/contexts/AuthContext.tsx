@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useEffect, useMemo, useState } from 'react';
 import { router } from 'expo-router';
 import { Routes } from '@/constants/routes';
-import { loginWithGoogle, fetchCurrentUser } from '@/services/api/auth';
+import { loginWithGoogle, fetchCurrentUser, loginAsGuest } from '@/services/api/auth';
 import { selectMentor } from '@/services/api/mentor';
 import {
   createGuestUser,
@@ -55,11 +55,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const token = await getAuthToken();
       const storedUser = await getStoredUser();
 
-      if (storedUser?.isGuest) {
-        setUser(storedUser);
-        return;
-      }
-
       if (token) {
         try {
           const remoteUser = await fetchCurrentUser();
@@ -71,7 +66,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
       }
 
-      if (storedUser && !storedUser.isGuest) {
+      if (storedUser) {
         setUser(storedUser);
         return;
       }
@@ -97,8 +92,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const loginGuest = useCallback(async () => {
     setLoading(true);
     try {
-      const guestUser = await createGuestUser();
+      const { user: guestUser } = await loginAsGuest();
       setUser(guestUser);
+      await saveStoredUser(guestUser);
       await navigateAfterAuth(guestUser);
     } finally {
       setLoading(false);

@@ -38,7 +38,7 @@ export class GeminiProvider implements AIProvider {
       generationConfig: {
         responseMimeType: 'application/json',
         temperature: 0.7,
-        maxOutputTokens: 2048,
+        maxOutputTokens: 8192,
       },
     };
 
@@ -70,7 +70,9 @@ export class GeminiProvider implements AIProvider {
         quiz: Array.isArray(parsed.quiz) ? parsed.quiz : undefined,
         practice: Array.isArray(parsed.practice) ? parsed.practice : undefined,
       };
-    } catch {
+    } catch (error) {
+      console.error("JSON parsing error:", error);
+      console.error("Raw text was:", rawText);
       return FALLBACK_RESPONSE;
     }
   }

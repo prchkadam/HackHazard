@@ -22,39 +22,42 @@ function MentorCardComponent({ mentor, selected = false, onSelect, loading = fal
       style={styles.card}
       accessibilityLabel={`Select mentor ${mentor.name}`}
     >
-      <View
-        style={[styles.illustration, { backgroundColor: `${mentor.accentColor}20` }]}
-        accessibilityLabel={`${mentor.name} illustration placeholder`}
-      >
-        <Text style={[createTextStyle('xxxl', 'bold'), { color: mentor.accentColor }]}>
-          {mentor.name[0]}
-        </Text>
+      <View style={styles.headerRow}>
+        <View
+          style={[styles.illustration, { backgroundColor: `${mentor.accentColor}15` }]}
+          accessibilityLabel={`${mentor.name} illustration placeholder`}
+        >
+          <Text style={[createTextStyle('lg', 'bold'), { color: mentor.accentColor }]}>
+            {mentor.name[0]}
+          </Text>
+        </View>
+        <View style={styles.headerText}>
+          <Text style={[createTextStyle('md', 'bold'), { color: theme.text }]}>
+            {mentor.name}
+          </Text>
+          <Text style={[createTextStyle('xs'), { color: theme.textSecondary, marginTop: 2 }]}>
+            {mentor.personality.join(' · ')}
+          </Text>
+        </View>
       </View>
 
-      <Text style={[createTextStyle('xl', 'bold'), styles.name, { color: theme.text }]}>
-        {mentor.name}
-      </Text>
-
-      <Text style={[createTextStyle('sm'), { color: theme.textSecondary }]}>
-        {mentor.personality.join(' · ')}
-      </Text>
-
-      <Text style={[createTextStyle('md'), styles.description, { color: theme.textSecondary }]}>
+      <Text style={[createTextStyle('sm'), styles.description, { color: theme.textSecondary }]}>
         {mentor.description}
       </Text>
 
       <View style={[styles.conversation, { backgroundColor: theme.backgroundSecondary }]}>
-        <Text style={[createTextStyle('sm', 'medium'), { color: theme.text }]}>
+        <Text style={[createTextStyle('xs', 'medium'), { color: theme.text }]} numberOfLines={1}>
           "{mentor.examplePrompt}"
         </Text>
-        <Text style={[createTextStyle('sm'), styles.response, { color: theme.textSecondary }]}>
-          ↓ "{mentor.exampleResponse}"
+        <Text style={[createTextStyle('xs'), styles.response, { color: theme.textSecondary }]} numberOfLines={1}>
+          → "{mentor.exampleResponse}"
         </Text>
       </View>
 
       <AppButton
         label={selected ? 'Selected' : 'Select'}
         variant={selected ? 'secondary' : 'primary'}
+        size="sm"
         onPress={() => onSelect(mentor.id)}
         loading={loading && selected}
         disabled={loading}
@@ -66,30 +69,37 @@ function MentorCardComponent({ mentor, selected = false, onSelect, loading = fal
 
 const styles = StyleSheet.create({
   card: {
-    marginBottom: Spacing.xxl,
+    marginBottom: Spacing.md,
+    padding: Spacing.md,
+  },
+  headerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: Spacing.sm,
   },
   illustration: {
-    width: 72,
-    height: 72,
-    borderRadius: 36,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: Spacing.lg,
+    marginRight: Spacing.md,
   },
-  name: {
-    marginBottom: Spacing.xs,
+  headerText: {
+    flex: 1,
+    justifyContent: 'center',
   },
   description: {
-    marginTop: Spacing.sm,
-    marginBottom: Spacing.lg,
+    marginBottom: Spacing.sm,
+    lineHeight: 18,
   },
   conversation: {
-    borderRadius: Spacing.lg,
-    padding: Spacing.lg,
-    marginBottom: Spacing.lg,
+    borderRadius: 8,
+    padding: Spacing.sm,
+    marginBottom: Spacing.md,
   },
   response: {
-    marginTop: Spacing.sm,
+    marginTop: 4,
   },
 });
 

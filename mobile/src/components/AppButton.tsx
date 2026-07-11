@@ -91,7 +91,7 @@ function AppButtonComponent({
         {
           backgroundColor: getBackgroundColor(),
           borderColor: getBorderColor(),
-          opacity: pressed && !isDisabled ? 0.85 : 1,
+          transform: [{ scale: pressed && !isDisabled ? 0.98 : 1 }],
           width: fullWidth ? '100%' : undefined,
         },
         style,

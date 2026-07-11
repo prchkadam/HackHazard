@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const PROMPT_DIR = join(__dirname, '../../prompts');
+const PROMPT_DIR = join(__dirname, '../prompts');
 
 const MENTOR_PROMPT_FILES: Record<string, string> = {
   ved: 'ved.txt',

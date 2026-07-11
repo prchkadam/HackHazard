@@ -72,11 +72,11 @@ export const Spacing = {
 } as const;
 
 export const Radius = {
-  input: 16,
-  button: 18,
-  card: 24,
-  dialog: 28,
-  bottomSheet: 32,
+  input: 12,
+  button: 12,
+  card: 16,
+  dialog: 20,
+  bottomSheet: 24,
   full: 9999,
 } as const;
 

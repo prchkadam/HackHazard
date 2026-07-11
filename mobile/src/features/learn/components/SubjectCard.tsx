@@ -1,7 +1,6 @@
 import React, { memo } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { AppCard } from '@/components/AppCard';
-import { Spacing, createTextStyle } from '@/constants/theme';
+import { StyleSheet, Text, View, Pressable } from 'react-native';
+import { Spacing, createTextStyle, Radius } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import type { Subject } from '@/types/learn';
 
@@ -14,43 +13,54 @@ function SubjectCardComponent({ subject, onPress }: SubjectCardProps) {
   const theme = useTheme();
 
   return (
-    <AppCard onPress={onPress} style={styles.card}>
+    <Pressable
+      onPress={onPress}
+      style={({ pressed }) => [
+        styles.chip,
+        {
+          backgroundColor: theme.backgroundElement,
+          borderColor: theme.borderLight,
+          transform: [{ scale: pressed ? 0.97 : 1 }],
+        },
+      ]}
+    >
       <View style={[styles.emojiContainer, { backgroundColor: subject.color + '15' }]}>
         <Text style={styles.emoji}>{subject.emoji}</Text>
       </View>
       <Text
         style={[createTextStyle('sm', 'semiBold'), styles.title, { color: theme.text }]}
-        numberOfLines={2}
+        numberOfLines={1}
       >
         {subject.title}
       </Text>
-    </AppCard>
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
-  card: {
-    flex: 1,
-    margin: Spacing.xs,
-    padding: Spacing.lg,
+  chip: {
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    minWidth: 100,
-    aspectRatio: 1,
-  },
-  emojiContainer: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.sm,
+    borderRadius: Radius.input,
+    borderWidth: 1,
+    marginRight: Spacing.sm,
     marginBottom: Spacing.sm,
   },
+  emojiContainer: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: Spacing.sm,
+  },
   emoji: {
-    fontSize: 24,
+    fontSize: 16,
   },
   title: {
-    textAlign: 'center',
+    textAlign: 'left',
   },
 });
 

@@ -10,6 +10,7 @@ import {
 import { Clock, BookOpen, Brain, Sparkles, AlertCircle } from 'lucide-react-native';
 import { AppScreen } from '@/components/AppScreen';
 import { AppCard } from '@/components/AppCard';
+import { EmptyState } from '@/components/EmptyState';
 import { createTextStyle, Spacing, Radius } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import { apiFetchJourneyTimeline } from '@/services/api/journey';
@@ -127,13 +128,11 @@ export default function JourneyScreen() {
             <RefreshControl refreshing={refreshing} onRefresh={() => load(true)} />
           }
           ListEmptyComponent={
-            <View style={styles.emptyState}>
-              <AlertCircle size={48} color={theme.textMuted} />
-              <Text style={[styles.emptyTitle, { color: theme.text }]}>No memories yet</Text>
-              <Text style={[styles.emptySubtitle, { color: theme.textSecondary }]}>
-                Your journey begins after your first focus session.
-              </Text>
-            </View>
+            <EmptyState
+              title="No memories yet"
+              message="Your journey begins after your first focus session."
+              icon={<Sparkles size={28} color={theme.textSecondary} strokeWidth={1.5} />}
+            />
           }
         />
       )}

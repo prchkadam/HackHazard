@@ -3,13 +3,17 @@ import { buildPrompt } from '../../utils/promptBuilder';
 import type { AIResponse } from './aiProvider';
 import type { ConversationMessage } from '../../utils/promptBuilder';
 
-const provider = new GeminiProvider();
+let provider: GeminiProvider | null = null;
 
 export async function generateMentorResponse(
   mentorId: string,
   conversationHistory: ConversationMessage[],
   currentMessage: string,
 ): Promise<AIResponse> {
+  if (!provider) {
+    provider = new GeminiProvider();
+  }
   const prompt = buildPrompt(mentorId, conversationHistory, currentMessage);
   return provider.generateResponse(prompt);
 }
+

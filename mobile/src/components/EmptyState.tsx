@@ -19,11 +19,13 @@ function EmptyStateComponent({
 
   return (
     <View style={styles.container} accessibilityRole="text">
-      {icon ?? <Inbox size={48} color={theme.textMuted} strokeWidth={1.5} />}
-      <Text style={[createTextStyle('lg', 'semiBold'), styles.title, { color: theme.text }]}>
+      <View style={[styles.iconWrapper, { backgroundColor: theme.backgroundSecondary }]}>
+        {icon ?? <Inbox size={28} color={theme.textSecondary} strokeWidth={1.5} />}
+      </View>
+      <Text style={[createTextStyle('md', 'semiBold'), styles.title, { color: theme.text }]}>
         {title}
       </Text>
-      <Text style={[createTextStyle('md'), styles.message, { color: theme.textSecondary }]}>
+      <Text style={[createTextStyle('sm'), styles.message, { color: theme.textSecondary }]}>
         {message}
       </Text>
     </View>
@@ -35,15 +37,24 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: Spacing.xxxl,
+    paddingVertical: Spacing.xxxl,
+    paddingHorizontal: Spacing.lg,
+  },
+  iconWrapper: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: Spacing.sm,
   },
   title: {
-    marginTop: Spacing.lg,
     textAlign: 'center',
   },
   message: {
-    marginTop: Spacing.sm,
+    marginTop: Spacing.xs,
     textAlign: 'center',
+    lineHeight: 18,
   },
 });
 

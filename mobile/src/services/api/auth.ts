@@ -13,6 +13,14 @@ export async function loginWithGoogle(payload: GoogleLoginPayload): Promise<Auth
   return data;
 }
 
+export async function loginAsGuest(): Promise<AuthResponse> {
+  const response = await apiClient.post<{ success: boolean; data: AuthResponse }>('/auth/guest');
+  const data = extractData(response);
+  await setAuthToken(data.token);
+  return data;
+}
+
+
 export async function fetchCurrentUser(): Promise<User> {
   const response = await apiClient.get<{ success: boolean; data: User }>('/auth/me');
   return extractData(response);

@@ -1,5 +1,5 @@
-import React, { memo } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { memo, useRef, useEffect } from 'react';
+import { StyleSheet, Text, View, Animated, Easing } from 'react-native';
 import { Radius, Shadow, Spacing, createTextStyle } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import type { CompanionStage, CompanionMood } from '@/types/companion';
@@ -24,25 +24,107 @@ function CompanionCardComponent({
   const theme = useTheme();
 
   const size = compact ? 64 : 120;
-  const glowSize = compact ? 80 : 140;
+  const glowSize1 = compact ? 80 : 160;
+  const glowSize2 = compact ? 96 : 200;
+
+  // Animation values
+  const pulseAnim1 = useRef(new Animated.Value(1)).current;
+  const pulseAnim2 = useRef(new Animated.Value(1)).current;
+  const floatAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    // Primary breathing pulse
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulseAnim1, {
+          toValue: 1.1,
+          duration: 2500,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulseAnim1, {
+          toValue: 0.95,
+          duration: 2500,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+
+    // Out-of-phase secondary pulse
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulseAnim2, {
+          toValue: 0.9,
+          duration: 3000,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulseAnim2, {
+          toValue: 1.15,
+          duration: 3000,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+
+    // Gentle float loop
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(floatAnim, {
+          toValue: -8,
+          duration: 3500,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(floatAnim, {
+          toValue: 0,
+          duration: 3500,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+  }, []);
 
   return (
     <View
       style={[styles.container, compact && styles.compactContainer]}
       accessibilityLabel={`Your companion, currently ${STAGE_LABELS[stage]}, feeling ${mood}`}
     >
-      <View
+      {/* Outer Glow Ring */}
+      <Animated.View
         style={[
           styles.glow,
           {
-            width: glowSize,
-            height: glowSize,
-            borderRadius: glowSize / 2,
+            width: glowSize2,
+            height: glowSize2,
+            borderRadius: glowSize2 / 2,
             backgroundColor: theme.companionGlow,
+            opacity: 0.25,
+            transform: [{ scale: pulseAnim2 }],
           },
         ]}
       />
-      <View
+      
+      {/* Inner Glow Ring */}
+      <Animated.View
+        style={[
+          styles.glow,
+          {
+            width: glowSize1,
+            height: glowSize1,
+            borderRadius: glowSize1 / 2,
+            backgroundColor: theme.companionGlow,
+            opacity: 0.5,
+            transform: [{ scale: pulseAnim1 }],
+          },
+        ]}
+      />
+
+      {/* Companion Body */}
+      <Animated.View
         style={[
           styles.companion,
           {
@@ -50,6 +132,7 @@ function CompanionCardComponent({
             height: size,
             borderRadius: size / 2,
             backgroundColor: theme.primary,
+            transform: [{ translateY: floatAnim }],
           },
           Shadow.lg,
         ]}
@@ -57,9 +140,10 @@ function CompanionCardComponent({
         <Text style={[createTextStyle(compact ? 'lg' : 'xxl', 'bold'), { color: theme.white }]}>
           ✦
         </Text>
-      </View>
+      </Animated.View>
+
       {!compact ? (
-        <Text style={[createTextStyle('sm'), styles.label, { color: theme.textSecondary }]}>
+        <Text style={[createTextStyle('sm', 'medium'), styles.label, { color: theme.textSecondary }]}>
           {STAGE_LABELS[stage]}
         </Text>
       ) : null}
@@ -71,7 +155,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: Spacing.xxl,
+    paddingVertical: Spacing.xxxl,
   },
   compactContainer: {
     paddingVertical: Spacing.lg,
@@ -85,8 +169,9 @@ const styles = StyleSheet.create({
     borderRadius: Radius.full,
   },
   label: {
-    marginTop: Spacing.lg,
+    marginTop: Spacing.xxl,
     textAlign: 'center',
+    letterSpacing: 0.5,
   },
 });
 

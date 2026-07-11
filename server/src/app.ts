@@ -9,6 +9,9 @@ import aiRoutes from './routes/ai.routes';
 import focusRoutes from './routes/focus.routes';
 import journeyRoutes from './routes/journey.routes';
 import { errorHandler } from './middleware/error.middleware';
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 

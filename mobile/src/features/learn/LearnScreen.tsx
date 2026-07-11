@@ -9,7 +9,7 @@ import { POPULAR_SUBJECTS } from '@/types/learn';
 import { useLearnHistory } from './hooks/useLearnHistory';
 import { SubjectCard } from './components/SubjectCard';
 import { TopicCard } from './components/TopicCard';
-import { Spacing, createTextStyle } from '@/constants/theme';
+import { Spacing, createTextStyle, Radius } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 
 export function LearnScreen() {
@@ -152,11 +152,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderRadius: 24,
+    borderRadius: Radius.input,
     paddingLeft: Spacing.md,
     paddingRight: Spacing.xs,
     height: 48,
-    marginBottom: Spacing.xxl,
+    marginBottom: Spacing.xl,
   },
   input: {
     flex: 1,
@@ -165,19 +165,19 @@ const styles = StyleSheet.create({
   sendButton: {
     paddingHorizontal: Spacing.md,
     height: 36,
-    borderRadius: 18,
+    borderRadius: Radius.button,
     alignItems: 'center',
     justifyContent: 'center',
   },
   section: {
-    marginBottom: Spacing.xxl,
+    marginBottom: Spacing.xl,
   },
   sectionTitle: {
-    marginBottom: Spacing.md,
+    marginBottom: Spacing.sm,
   },
   subjectsGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginHorizontal: -Spacing.xs,
+    marginTop: Spacing.xs,
   },
 });
