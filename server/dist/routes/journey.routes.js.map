@@ -1,0 +1,1 @@
+{"version":3,"file":"journey.routes.js","sourceRoot":"","sources":["../../src/routes/journey.routes.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,MAAM,EAAE,MAAM,SAAS,CAAC;AACjC,OAAO,EAAE,cAAc,EAAE,MAAM,cAAc,CAAC;AAC9C,OAAO,EAAE,UAAU,EAAE,MAAM,mCAAmC,CAAC;AAE/D,MAAM,MAAM,GAAG,MAAM,EAAE,CAAC;AAExB,MAAM,CAAC,GAAG,CAAC,GAAG,EAAE,cAAc,EAAE,UAAU,CAAC,CAAC;AAE5C,eAAe,MAAM,CAAC"}
