@@ -58,7 +58,7 @@
     },
     "owner": "uncensored",
     "runtimeVersion": {
-      "policy": "appVersion"
+      "policy": "sdkVersion"
     },
     "updates": {
       "url": "https://u.expo.dev/414a458e-9b0b-4aba-b8db-1bf111dc4f0d"
