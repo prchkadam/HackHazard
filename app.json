@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "0a27e318-026e-47a3-881b-5e5334d3ec37"
+      }
+    },
+    "android": {
+      "package": "com.uncensored.hackhazard"
+    }
+  }
+}
